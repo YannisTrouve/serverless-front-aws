@@ -7,7 +7,7 @@ import "./App.css";
 import Routes from "./Routes";
 import { AppContext } from "./libs/contextLib";
 import { useHistory } from "react-router-dom";
-import { onError } from "./libs/errorLibs";
+import { onError } from "./libs/errorLib";
 
 function App() {
 
@@ -50,14 +50,14 @@ function App() {
           <Navbar.Collapse className="justify-content-end">
             <Nav activeKey={window.location.pathname}>
               {isAuthenticated ? (
-                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                <Nav.Link onClick={handleLogout}>Se déconnecter</Nav.Link>
               ) : (
                   <>
                     <LinkContainer to="/signup">
-                      <Nav.Link>Signup</Nav.Link>
+                      <Nav.Link>S'incrire</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/login">
-                      <Nav.Link>Login</Nav.Link>
+                      <Nav.Link>Se connecter</Nav.Link>
                     </LinkContainer>
                   </>
                 )}
