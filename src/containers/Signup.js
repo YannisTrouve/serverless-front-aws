@@ -6,6 +6,7 @@ import { useAppContext } from "../libs/contextLib";
 import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";
 import "./Signup.css";
+import { Auth } from "aws-amplify";
 
 export default function Signup() {
   const [fields, handleFieldChange] = useFormFields({
@@ -36,29 +37,48 @@ export default function Signup() {
 
     setIsLoading(true);
 
-    setNewUser("test");
-
-    setIsLoading(false);
+    try {
+      const newUser = await Auth.signUp({
+        username: fields.email,
+        password: fields.password,
+      });
+      setIsLoading(false);
+      setNewUser(newUser);
+    } catch (e) {
+      onError(e);
+      setIsLoading(false);
+    }
   }
 
   async function handleConfirmationSubmit(event) {
     event.preventDefault();
 
     setIsLoading(true);
+
+    try {
+      await Auth.confirmSignUp(fields.email, fields.confirmationCode);
+      await Auth.signIn(fields.email, fields.password);
+
+      userHasAuthenticated(true);
+      history.push("/");
+    } catch (e) {
+      onError(e);
+      setIsLoading(false);
+    }
   }
 
   function renderConfirmationForm() {
     return (
       <Form onSubmit={handleConfirmationSubmit}>
         <Form.Group controlId="confirmationCode" size="lg">
-          <Form.Label>Confirmation Code</Form.Label>
+          <Form.Label>Code de confirmation</Form.Label>
           <Form.Control
             autoFocus
             type="tel"
             onChange={handleFieldChange}
             value={fields.confirmationCode}
           />
-          <Form.Text muted>Please check your email for the code.</Form.Text>
+          <Form.Text muted>Veuillez vérifier vos e-mails pour le code.</Form.Text>
         </Form.Group>
         <LoaderButton
           block
@@ -68,7 +88,7 @@ export default function Signup() {
           isLoading={isLoading}
           disabled={!validateConfirmationForm()}
         >
-          Verify
+          Vérifiez
         </LoaderButton>
       </Form>
     );
@@ -87,7 +107,7 @@ export default function Signup() {
           />
         </Form.Group>
         <Form.Group controlId="password" size="lg">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Mot de passe</Form.Label>
           <Form.Control
             type="password"
             value={fields.password}
@@ -95,7 +115,7 @@ export default function Signup() {
           />
         </Form.Group>
         <Form.Group controlId="confirmPassword" size="lg">
-          <Form.Label>Confirm Password</Form.Label>
+          <Form.Label>Confirmez votre mot de passe</Form.Label>
           <Form.Control
             type="password"
             onChange={handleFieldChange}
@@ -110,7 +130,7 @@ export default function Signup() {
           isLoading={isLoading}
           disabled={!validateForm()}
         >
-          Signup
+          S'inscrire
         </LoaderButton>
       </Form>
     );

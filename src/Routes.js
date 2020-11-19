@@ -8,10 +8,10 @@ import Signup from "./containers/Signup";
 export default function Routes() {
   return (
     <Switch>
-      <Route exact path="/">
+      <Route exact path="/error404">
         <NotFound />
       </Route>
-      <Route exact path="/home">
+      <Route exact path="/">
         <Home />
       </Route>
       <Route exact path="/signup">

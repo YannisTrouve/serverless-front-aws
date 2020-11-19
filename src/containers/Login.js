@@ -20,7 +20,7 @@ export default function Login() {
 
 
     function validateForm() {
-        return email.length > 0 && password.length > 0;
+        return fields.email.length > 0 && fields.password.length > 0;
     }
 
     async function handleSubmit(event) {
@@ -28,9 +28,9 @@ export default function Login() {
         setIsLoading(true);
 
         try {
-            await Auth.signIn(email, password);
+            await Auth.signIn(fields.email, fields.password);
             userHasAuthenticated(true); 
-            history.push("/home");
+            history.push("/");
         } catch (e) {
             onError(e);
             setIsLoading(false);
@@ -46,8 +46,8 @@ export default function Login() {
                     </Form.Label>
                     <Form.Control
                         autoFocus
-                        type="Adresse mail"
-                        value={email}
+                        type="email"
+                        value={fields.email}
                         onChange={handleFieldChange}
                     />
                 </Form.Group>
@@ -58,7 +58,7 @@ export default function Login() {
                     <Form.Control
                         autoFocus
                         type="password"
-                        value={password}
+                        value={fields.password}
                         onChange={handleFieldChange}
                     />
                 </Form.Group>
