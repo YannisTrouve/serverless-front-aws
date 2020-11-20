@@ -43,7 +43,7 @@ function App() {
         <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
           <LinkContainer to="/">
             <Navbar.Brand className="font-weight-bold text-muted">
-              Yo Ok ! 
+              Yo Ok !
           </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle />
@@ -53,6 +53,9 @@ function App() {
                 <Nav.Link onClick={handleLogout}>Se déconnecter</Nav.Link>
               ) : (
                   <>
+                    <LinkContainer to="/settings">
+                      <Nav.Link>Paramètres</Nav.Link>
+                    </LinkContainer>
                     <LinkContainer to="/signup">
                       <Nav.Link>S'incrire</Nav.Link>
                     </LinkContainer>

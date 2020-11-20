@@ -1,4 +1,6 @@
 const config = {
+  MAX_ATTACHMENT_SIZE: 5000000,
+  STRIPE_KEY: "pk_test_51HkRv7Ades3ST2VShdyYT1OXNjeFwMdM3ZCCBWlUVqcaaf0eXSLoQqPjOZrJFgDjVwi4A2frsUD5qJThG55rQobb0003VbYvEO",
     s3: {
       REGION: "eu-west-2",
       BUCKET: "notes-dev-serverlessdeploymentbucket-15bims7zoecyy",
