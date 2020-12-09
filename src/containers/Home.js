@@ -17,23 +17,25 @@ export default function Home() {
       if (!isAuthenticated) {
         return;
       }
-  
+
       try {
         const notes = await loadNotes();
         setNotes(notes);
       } catch (e) {
         onError(e);
       }
-  
+
       setIsLoading(false);
     }
-  
+
     onLoad();
   }, [isAuthenticated]);
-  
+
   function loadNotes() {
     return API.get("notes", "/notes");
   }
+
+ 
 
   function renderNotesList(notes) {
     return (
@@ -64,8 +66,24 @@ export default function Home() {
   function renderLander() {
     return (
       <div className="lander">
-        <h1>Yooo</h1>
-        <p className="text-muted">A simple note taking app</p>
+        <h1>Bonjour !</h1>
+        <p className="text-muted">Ceci est application pour prendre des notes. Elel a été créer et hébergé dans un but totalement éducatif dans une optique "Serverless". Pour cela j'ai suivi la documentation de http://serverless-stack.com.</p>
+        <dl className="text-muted">
+          <dt>Font</dt>
+          <dd>- ReactJS</dd>
+          <dt>Back</dt>
+          <dd>- Serverless</dd>
+          <dt>Hébergment : AWS. J'ai utilisé :</dt>
+          <dd>- Lambda </dd> 
+          <dd>- Cognito</dd>
+          <dd>- DynamoDB</dd>
+          <dd>- Billing</dd>
+          <dd>- S3 </dd>
+          <dd>- Simple Email Service</dd>
+        </dl>
+        <p className="text-muted">Bonne utilisation.</p>
+        <p className="text-muted"> Yannis Trouvé</p>
+
       </div>
     );
   }
